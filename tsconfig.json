@@ -1,0 +1,8 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/typescript-config/base.json" },
+    { "path": "./packages/typescript-config/react-library.json" },
+    { "path": "./packages/typescript-config/nextjs.json" }
+  ]
+}
