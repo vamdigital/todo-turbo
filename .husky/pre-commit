@@ -1,3 +1,11 @@
+
+echo ' 🎋 Checking branch name'
+
+pnpm dlx validate-branch-name || (
+  echo '😔 Please check the branch name.'
+) || false
+
+
 echo '🏗️👷 Styling, testing and building your project before committing'
 
 # Check Prettier standards
