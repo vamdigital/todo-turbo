@@ -81,6 +81,7 @@ export const config = [
       // Storybook
       '**/.storybook/**',
       '**/storybook-static/**',
+      '**/stories/**',
 
       // Testing snapshots
       '**/__snapshots__/**'

@@ -1,5 +1,5 @@
-import { Sample } from '@repo/ui/components/custom/Sample'
-import { Button } from '@repo/ui/components/ui/button'
+import { Sample } from '@ui/components/custom'
+import { Button } from '@ui/components/ui/button'
 
 export default function Home() {
   return (

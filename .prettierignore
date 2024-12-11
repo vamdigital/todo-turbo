@@ -7,5 +7,5 @@ next-env.d.ts
 next.config.ts
 components.json
 tsconfig.json
-src/components/ui/
+packages/ui/src/stories
 *.lock
