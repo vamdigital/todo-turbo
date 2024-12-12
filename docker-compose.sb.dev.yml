@@ -1,0 +1,14 @@
+services:
+  sb-dev:
+    container_name: 'ui-storybook'
+    build:
+      context: .
+      dockerfile: ./packages/ui/Dockerfile.dev.storybook
+    ports:
+      - '6006:6006'
+    volumes:
+      - .:/app:delegated # Ensure correct volume mounting
+      # - /app/node_modules # Prevent host-contaminated node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: pnpm storybook

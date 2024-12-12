@@ -1,0 +1,37 @@
+FROM node:18-alpine
+
+# Install curl
+RUN apk add --no-cache curl
+
+# Install xdg-utils to open the browser
+RUN apk add --no-cache xdg-utils
+
+# Set up pnpm global bin directory
+ENV PNPM_HOME="/root/.local/share/pnpm"
+ENV PATH="${PNPM_HOME}:${PATH}"
+
+# Install pnpm globally
+RUN npm install -g pnpm
+
+# Create app directory
+WORKDIR /app
+
+# Copy root-level pnpm configuration
+COPY pnpm-workspace.yaml ./
+COPY package.json pnpm-lock.yaml ./
+
+# Install dependencies for the specific package
+RUN pnpm install  --frozen-lockfile
+
+# Install platform-specific esbuild
+
+RUN pnpm add @esbuild/linux-arm64 --filter @repo/ui
+
+# Copy all files
+COPY . .
+
+# Expose Storybook port
+EXPOSE 6006
+
+# Start Storybook
+CMD ["pnpm", "storybook"]
