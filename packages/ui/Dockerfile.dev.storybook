@@ -23,9 +23,6 @@ COPY package.json pnpm-lock.yaml ./
 # Install dependencies for the specific package
 RUN pnpm install  --frozen-lockfile
 
-# Install platform-specific esbuild
-# RUN pnpm add @esbuild/linux-arm64 --filter @repo/ui
-
 # Copy all files
 COPY . .
 

@@ -51,6 +51,16 @@ npm run build ||
 		false
 	)
 
+echo '✅✅✅✅ .. OK... Code looks good to me... Trying to storybook build now. 🤔🤔🤔🤔'
+
+npm run storybook:build || 
+	(
+		echo '❌👷🔨❌ Better call Bob... Because your storybook build failed ❌👷🔨❌
+            storybook build failed: View the errors above to see why. 
+    '
+		false
+	)
+
 # If everything passes... Now we can commit
 echo '✅✅✅✅ You win this time... I am committing this now. ✅✅✅✅'
 
