@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile.dev
+    container_name: nextjs-web-dev
+    ports:
+      - '3000:3000' # Map host port 3000 to container port 3000
+    volumes:
+      - .:/app # Mount entire monorepo for live reload
+      - /app/node_modules # Prevent node_modules override
+      - /app/apps/web/.next # Prevent cache issues
+    environment:
+      NODE_ENV: development

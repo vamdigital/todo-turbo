@@ -19,6 +19,8 @@
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
+    "@esbuild/linux-arm64": "latest",
+    "@rollup/rollup-linux-arm64-musl": "latest",
     "@trivago/prettier-plugin-sort-imports": "^5.2.0",
     "@types/node": "^22.10.2",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
@@ -31,8 +33,6 @@
     "prettier": "^3.2.5",
     "turbo": "^2.3.3",
     "typescript": "5.5.4",
-    "@esbuild/linux-arm64": "latest",
-    "@rollup/rollup-linux-arm64-musl": "latest",
     "validate-branch-name": "^1.3.1"
   },
   "config": {
@@ -50,6 +50,8 @@
     "node": ">=18"
   },
   "dependencies": {
-    "http-serve": "^1.0.1"
+    "autoprefixer": "^10.4.20",
+    "http-serve": "^1.0.1",
+    "postcss": "^8.4.49"
   }
 }

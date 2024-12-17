@@ -1,0 +1,32 @@
+services:
+  storybook:
+    container_name: ui-storybook
+    build:
+      context: .
+      dockerfile: ./packages/ui/Dockerfile.dev.storybook
+    ports:
+      - '6006:6006'
+    volumes:
+      - .:/app:delegated
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: pnpm storybook
+    profiles:
+      - storybook
+
+  nextjs:
+    container_name: nextjs-web-dev
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile.dev
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/apps/web/.next
+    environment:
+      NODE_ENV: development
+    command: pnpm --filter web dev
+    profiles:
+      - nextjs
