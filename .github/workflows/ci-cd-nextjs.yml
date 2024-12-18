@@ -19,19 +19,32 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Build Docker image
+      # Step 2: Set up Docker Buildx (for multi-platform builds)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Step 3: Cache Docker layers to speed up builds
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      # Step 4: Build Docker image
       - name: Build Docker Image
         run: |
-          docker build -t nextjs-app -f apps/web/Dockerfile.
+          docker buildx build -t nextjs-app -f apps/web/Dockerfile .
 
-      # Step 3: Push to Vercel Container Registry
+      # Step 5: Push to Vercel Container Registry
       - name: Push to Vercel Container Registry
         run: |
           npx vercel container push nextjs-app vercel://${{ secrets.VERCEL_PROJECT_ID_NEXTJS }}
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN_NEXTJS }}
 
-      # Step 4: Deploy to Vercel
+      # Step 6: Deploy to Vercel
       - name: Deploy to Vercel
         run: |
           npx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN_NEXTJS }}
