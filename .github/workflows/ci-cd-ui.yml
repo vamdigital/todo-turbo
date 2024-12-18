@@ -6,13 +6,11 @@ on:
       - master
     paths:
       - 'packages/ui/**'
-      - 'packages/ui/**/**'
   pull_request:
     branches:
       - master
     paths:
       - 'packages/ui/**'
-      - 'packages/ui/**/**'
 
 jobs:
   deploy-ui:
