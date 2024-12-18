@@ -11,7 +11,10 @@
     "check-types": "tsc --noEmit",
     "check-format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "docker:next": "docker compose --profile nextjs up",
+    "docker:sb": "docker compose --profile storybook up",
+    "docker:both": "docker compose --profile storybook --profile nextjs up"
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx,json,css,scss}": "turbo lint -- --fix"
