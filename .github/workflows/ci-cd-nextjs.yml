@@ -1,0 +1,42 @@
+name: CI/CD for Dockerized Next.js App
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Log in to Docker Hub (Optional)
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Step 3: Build Docker image
+      - name: Build Docker Image
+        run: |
+          docker build -t nextjs-app .
+
+      # Step 4: Push to Vercel Container Registry
+      - name: Push to Vercel Container Registry
+        run: |
+          npx vercel container push nextjs-app vercel://${{ secrets.VERCEL_PROJECT_ID_NEXTJS }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN_NEXTJS }}
+
+      # Step 5: Deploy to Vercel
+      - name: Deploy to Vercel
+        run: |
+          npx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN_NEXTJS }}
