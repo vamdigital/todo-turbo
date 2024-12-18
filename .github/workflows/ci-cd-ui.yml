@@ -18,6 +18,8 @@ jobs:
       # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
 
       # Step 2: Setup Node.js
       - name: Setup Node.js
@@ -25,24 +27,30 @@ jobs:
         with:
           node-version: '18'
 
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        working-directory: packages/ui
-        run: npm install
+      # Step 3: Install pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
 
-      # Step 4: Build Storybook
+      # Step 4: Install dependencies using pnpm
+      - name: Install dependencies
+        run: |
+          pnpm install --frozen-lockfile
+
+      # Step 5: Build Storybook
       - name: Build Storybook
         working-directory: packages/ui
-        run: npm run build-storybook
+        run: |
+          pnpm run build-storybook
 
-      # Step 5: Deploy to Vercel
+      # Step 6: Deploy to Vercel
       - name: Deploy to Vercel
         working-directory: packages/ui
         run: |
           npx vercel deploy --prebuilt --prod \
             --token ${{ secrets.VERCEL_TOKEN_UI }} \
             --scope ${{ secrets.VERCEL_ORG_ID }} \
-            --build-env CI=true \
             storybook-static
         env:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_UI }}
