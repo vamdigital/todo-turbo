@@ -22,7 +22,7 @@ jobs:
 
       - name: Build and push Docker image for UI package
         run: |
-          docker build -t ui-package ./packages/ui
+          docker build -t ui-package -f packages/ui/Dockerfile
           npx vercel container push ui-package vercel://${{ secrets.VERCEL_PROJECT_ID_UI }}
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN_UI }}

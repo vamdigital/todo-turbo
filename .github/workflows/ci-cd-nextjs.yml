@@ -22,7 +22,7 @@ jobs:
       # Step 2: Build Docker image
       - name: Build Docker Image
         run: |
-          docker build -t nextjs-app .
+          docker build -t nextjs-app -f apps/web/Dockerfile.
 
       # Step 3: Push to Vercel Container Registry
       - name: Push to Vercel Container Registry
