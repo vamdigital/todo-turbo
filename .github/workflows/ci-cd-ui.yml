@@ -41,6 +41,7 @@ jobs:
         run: vercel link --yes --token ${{ secrets.VERCEL_TOKEN_UI }}
         env:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_UI }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
 
       # Step 6: Deploy to Vercel
       - name: Deploy to Vercel
