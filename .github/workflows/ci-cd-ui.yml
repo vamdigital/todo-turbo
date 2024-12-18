@@ -6,11 +6,13 @@ on:
       - master
     paths:
       - 'packages/ui/**'
+      - 'packages/ui/**/**'
   pull_request:
     branches:
       - master
     paths:
       - 'packages/ui/**'
+      - 'packages/ui/**/**'
 
 jobs:
   deploy-ui:
@@ -45,8 +47,13 @@ jobs:
           npx vercel container push ui-package vercel://${{ secrets.VERCEL_PROJECT_ID_UI }}
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN_UI }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_UI }}
 
       # Step 6: Deploy UI package to Vercel
       - name: Deploy UI package to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN_UI }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_UI }}
+        working-directory: packages/ui
         run: |
-          npx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN_UI }} --cwd=packages/ui
+          npx vercel deploy --prod --yes

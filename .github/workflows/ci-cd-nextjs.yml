@@ -6,11 +6,13 @@ on:
       - master
     paths:
       - 'apps/web/**'
+      - 'apps/web/**/**'
   pull_request:
     branches:
       - master
     paths:
       - 'apps/web/**'
+      - 'apps/web/**/**'
 
 jobs:
   build-and-deploy:
