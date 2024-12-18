@@ -44,7 +44,7 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN_UI }}
 
-      # Step 6: Deploy to Vercel
-      - name: Deploy UI package
+      # Step 6: Deploy UI package to Vercel
+      - name: Deploy UI package to Vercel
         run: |
           npx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN_UI }}
