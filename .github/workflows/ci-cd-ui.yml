@@ -29,24 +29,20 @@ jobs:
       - name: Install Vercel CLI
         run: npm install -g vercel
 
-      # Step 4: Login to Vercel
-      - name: Vercel Login
-        run: vercel login ${{ secrets.VERCEL_EMAIL }}
+      # Step 4: Configure Vercel
+      - name: Configure Vercel
+        run: |
+          vercel config set projectId ${{ secrets.VERCEL_PROJECT_ID_UI }}
+          vercel config set orgId ${{ secrets.VERCEL_TEAM_ID }}
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN_UI }}
 
-      # Step 5: Link Vercel Project
-      - name: Link Vercel Project
-        working-directory: packages/ui
-        run: vercel link --yes --token ${{ secrets.VERCEL_TOKEN_UI }}
-        env:
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_UI }}
-          VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}
-
-      # Step 6: Deploy to Vercel
+      # Step 5: Deploy to Vercel
       - name: Deploy to Vercel
         working-directory: packages/ui
-        run: vercel deploy --prebuilt --prod --token ${{ secrets.VERCEL_TOKEN_UI }}
+        run: |
+          vercel deploy --prebuilt --prod \
+            --token ${{ secrets.VERCEL_TOKEN_UI }} \
+            --scope ${{ secrets.VERCEL_TEAM_ID }}
         env:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_UI }}
-          VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}
