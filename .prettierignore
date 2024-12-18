@@ -9,3 +9,4 @@ components.json
 tsconfig.json
 packages/ui/src/stories
 *.lock
+pnpm-lock.yaml
