@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "projects": {
+    "ui": {
+      "src": "packages/ui",
+      "builds": [
+        {
+          "src": "packages/ui/Dockerfile",
+          "use": "@vercel/docker"
+        }
+      ]
+    },
+    "nextjs-app": {
+      "src": "apps/web",
+      "builds": [
+        {
+          "src": "apps/web/Dockerfile",
+          "use": "@vercel/docker"
+        }
+      ]
+    }
+  }
+}
