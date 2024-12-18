@@ -49,4 +49,4 @@ jobs:
       # Step 6: Deploy Next.js app to Vercel
       - name: Deploy Next.js app to Vercel
         run: |
-          npx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN_NEXTJS }}
+          npx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN_NEXTJS }} --cwd=apps/web

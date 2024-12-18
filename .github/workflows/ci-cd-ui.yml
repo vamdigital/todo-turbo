@@ -49,4 +49,4 @@ jobs:
       # Step 6: Deploy UI package to Vercel
       - name: Deploy UI package to Vercel
         run: |
-          npx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN_UI }}
+          npx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN_UI }} --cwd=packages/ui
