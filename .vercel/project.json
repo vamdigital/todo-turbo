@@ -4,8 +4,8 @@
   "settings": {
     "createdAt": 1734647908757,
     "framework": "nextjs",
-    "devCommand": "pnpm dev", 
-    "installCommand": "pnpm install --frozen-lockfile", 
+    "devCommand": "pnpm dev",
+    "installCommand": "pnpm install --frozen-lockfile",
     "buildCommand": "pnpm turbo run build --filter=web",
     "outputDirectory": "apps/web/.next",
     "rootDirectory": "/",
