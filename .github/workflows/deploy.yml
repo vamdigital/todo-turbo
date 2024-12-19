@@ -55,11 +55,11 @@ jobs:
           docker buildx build -t nextjs-app -f apps/web/Dockerfile .
 
       - name: Run Vercel Build
-        run: npx vercel build --cwd=apps/web
+        run: npx vercel build --cwd=apps/web --prod
 
       - name: Deploy Next.js app to Vercel
         run: |
-          npx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN_NEXTJS }} --cwd=apps/web --prod --yes
+          npx vercel deploy --token ${{ secrets.VERCEL_TOKEN_NEXTJS }} --cwd=apps/web --prod --yes
 
   # deploy-storybook:
   #   name: Deploy Storybook
