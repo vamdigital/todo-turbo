@@ -66,7 +66,7 @@ jobs:
       # Step 10: Push Docker Image to Vercel Container Registry
       - name: Push Docker Image to Vercel Container Registry
         run: |
-          npx vercel container push nextjs-app --token ${{ secrets.VERCEL_TOKEN_NEXTJS }} --project ${{ secrets.VERCEL_PROJECT_ID_NEXTJS }}
+          npx vercel container push nextjs-app --token ${{ secrets.VERCEL_TOKEN_NEXTJS }}
 
       # Step 11: Deploy the Next.js app to Vercel
       - name: Deploy Next.js app to Vercel

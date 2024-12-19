@@ -6,7 +6,8 @@
   },
   "env": {
     "PNPM_HOME": "/pnpm",
-    "NPM_CONFIG_USERCONFIG": "/pnpm/.npmrc"
+    "NPM_CONFIG_USERCONFIG": "/pnpm/.npmrc",
+    "VERCEL_PROJECT_ID": "${{ secrets.VERCEL_PROJECT_ID_NEXTJS }}"
   },
   "settings": {
     "createdAt": 1734647908757,
