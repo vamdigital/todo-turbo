@@ -3,7 +3,7 @@ name: Deploy Turbo Monorepo to Vercel
 on:
   push:
     branches:
-      - main
+      - master
     # Trigger actions only when relevant files change
     paths:
       - 'apps/web/**' # Changes in the Next.js app directory
