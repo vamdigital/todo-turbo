@@ -32,9 +32,9 @@ jobs:
       - name: Install Dependencies with pnpm
         run: pnpm install --frozen-lockfile
 
-      # - name: Pull Vercel Project Settings
-      #   run: |
-      #     npx vercel pull --yes --token ${{ secrets.VERCEL_TOKEN_NEXTJS }} --cwd=apps/web
+      - name: Pull Vercel Project Settings
+        run: |
+          npx vercel pull --yes --token ${{ secrets.VERCEL_TOKEN_NEXTJS }} --cwd=apps/web
 
       - name: Build Turbo Repo
         run: pnpm turbo run build --filter=web
