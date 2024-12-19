@@ -12,36 +12,65 @@ on:
 
 jobs:
   deploy-nextjs:
-    name: Deploy Next.js App
+    name: Deploy Next.js App with Docker
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout Code
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
+      # Step 3: Install pnpm
       - name: Install pnpm
         run: |
           corepack enable
           corepack prepare pnpm@latest --activate
 
+      # Step 4: Install Dependencies with pnpm
       - name: Install Dependencies with pnpm
         run: pnpm install --frozen-lockfile
 
+      # Step 5: Pull Vercel Project Settings for the app
       - name: Pull Vercel Project Settings
         run: |
           npx vercel pull --yes --token ${{ secrets.VERCEL_TOKEN_NEXTJS }} --cwd=apps/web
 
+      # Step 6: Build Turbo Repo with Turbo (for Next.js app)
       - name: Build Turbo Repo
         run: pnpm turbo run build --filter=web
 
-      - name: Run Vercel Build (for Production)
-        run: npx vercel build --cwd=apps/web --prod
+      # Step 7: Set up Docker Buildx (for multi-platform builds)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
+      # Step 8: Cache Docker layers to speed up builds
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      # Step 9: Build Docker image for Next.js app
+      - name: Build Docker Image for Next.js app
+        run: |
+          docker buildx build -t nextjs-app -f apps/web/Dockerfile .
+
+      # Step 10: Push Docker image to Vercel Container Registry
+      - name: Push Docker Image to Vercel Container Registry
+        run: |
+          npx vercel container push nextjs-app vercel://${{ secrets.VERCEL_PROJECT_ID_NEXTJS }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN_NEXTJS }}
+
+      # Step 11: Deploy the Next.js app to Vercel
       - name: Deploy Next.js app to Vercel
         run: |
           npx vercel deploy --token ${{ secrets.VERCEL_TOKEN_NEXTJS }} --cwd=apps/web --prod --yes

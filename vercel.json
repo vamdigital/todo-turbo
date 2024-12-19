@@ -8,8 +8,6 @@
     "PNPM_HOME": "/pnpm",
     "NPM_CONFIG_USERCONFIG": "/pnpm/.npmrc"
   },
-  "projectId": "prj_vBF4Fkxl7Kyg1AzRT6saNQji7wA8",
-  "orgId": "team_CAn0LA4HTsRaX1afiknrHCRe",
   "settings": {
     "createdAt": 1734647908757,
     "framework": "nextjs",
