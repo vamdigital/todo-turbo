@@ -15,6 +15,7 @@ jobs:
   deploy-nextjs:
     name: Deploy Next.js App
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && github.event.head_commit.message != 'skip-ci' }}
 
     steps:
       - name: Checkout Code
@@ -48,6 +49,7 @@ jobs:
   deploy-storybook:
     name: Deploy Storybook
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && github.event.head_commit.message != 'skip-ci' }}
 
     steps:
       - name: Checkout Code
