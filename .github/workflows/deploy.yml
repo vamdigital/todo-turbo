@@ -4,18 +4,16 @@ on:
   push:
     branches:
       - master
-    # Trigger actions only when relevant files change
     paths:
-      - 'apps/web/**' # Changes in the Next.js app directory
-      - 'packages/ui/**' # Changes in the Storybook directory
-      - '.github/workflows/**' # Changes to the GitHub Actions workflows
-      - 'pnpm-lock.yaml' # Changes to lockfile or dependencies
+      - 'apps/web/**'
+      - 'packages/ui/**'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/**'
 
 jobs:
   deploy-nextjs:
     name: Deploy Next.js App
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.event.head_commit.message != 'skip-ci' }}
 
     steps:
       - name: Checkout Code
@@ -25,6 +23,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: 'pnpm'
 
       - name: Install pnpm
         run: |
@@ -35,12 +34,13 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build Turbo Repo
-        run: pnpm turbo run build --filter=web
+        run: pnpm turbo run build --filter=apps/web
 
       - name: Build Docker Image
-        run: |
-          docker build -t nextjs-app -f apps/web/Dockerfile .
-          echo ${{ secrets.VERCEL_TOKEN }} | docker login --username ${{ secrets.VERCEL_ORG_ID }} --password-stdin registry.vercel.app
+        run: docker build -t nextjs-app -f apps/web/Dockerfile .
+
+      - name: Login to Docker Registry
+        run: echo "${{ secrets.VERCEL_TOKEN }}" | docker login registry.vercel.app -u ${{ secrets.VERCEL_ORG_ID }} --password-stdin
 
       - name: Push Docker Image
         run: |
@@ -50,7 +50,6 @@ jobs:
   deploy-storybook:
     name: Deploy Storybook
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.event.head_commit.message != 'skip-ci' }}
 
     steps:
       - name: Checkout Code
@@ -60,6 +59,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: 'pnpm'
 
       - name: Install pnpm
         run: |
@@ -70,12 +70,13 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build Turbo Repo
-        run: pnpm turbo run build --filter=@repo/ui
+        run: pnpm turbo run build --filter=packages/ui
 
       - name: Build Docker Image
-        run: |
-          docker build -t storybook-ui -f packages/ui/Dockerfile .
-          echo ${{ secrets.VERCEL_TOKEN }} | docker login --username ${{ secrets.VERCEL_ORG_ID }} --password-stdin registry.vercel.app
+        run: docker build -t storybook-ui -f packages/ui/Dockerfile .
+
+      - name: Login to Docker Registry
+        run: echo "${{ secrets.VERCEL_TOKEN }}" | docker login registry.vercel.app -u ${{ secrets.VERCEL_ORG_ID }} --password-stdin
 
       - name: Push Docker Image
         run: |
