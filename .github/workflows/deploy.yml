@@ -58,17 +58,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      # Step 9: Build Docker image for Next.js app
+      # Step 9: Build Docker Image for Next.js app
       - name: Build Docker Image for Next.js app
         run: |
           docker buildx build -t nextjs-app -f apps/web/Dockerfile .
 
-      # Step 10: Push Docker image to Vercel Container Registry
+      # Step 10: Push Docker Image to Vercel Container Registry
       - name: Push Docker Image to Vercel Container Registry
         run: |
-          npx vercel container push nextjs-app vercel://${{ secrets.VERCEL_PROJECT_ID_NEXTJS }}
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN_NEXTJS }}
+          npx vercel container push nextjs-app --token ${{ secrets.VERCEL_TOKEN_NEXTJS }} --project ${{ secrets.VERCEL_PROJECT_ID_NEXTJS }}
 
       # Step 11: Deploy the Next.js app to Vercel
       - name: Deploy Next.js app to Vercel
