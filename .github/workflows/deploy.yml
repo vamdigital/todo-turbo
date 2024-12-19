@@ -52,7 +52,7 @@ jobs:
 
       - name: Deploy Next.js app to Vercel
         run: |
-          npx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN_NEXTJS }} --cwd=apps/web --prod
+          npx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN_NEXTJS }} --cwd=apps/web --prod --yes
 
   # deploy-storybook:
   #   name: Deploy Storybook
