@@ -3,5 +3,9 @@
     "deploymentEnabled": {
       "master": false
     }
+  },
+  "env": {
+    "PNPM_HOME": "/pnpm",
+    "NPM_CONFIG_USERCONFIG":"/pnpm/.npmrc"
   }
 }
