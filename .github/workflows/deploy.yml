@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - main
+    # Trigger actions only when relevant files change
+    paths:
+      - 'apps/web/**' # Changes in the Next.js app directory
+      - 'packages/ui/**' # Changes in the Storybook directory
+      - '.github/workflows/**' # Changes to the GitHub Actions workflows
+      - 'pnpm-lock.yaml' # Changes to lockfile or dependencies
 
 jobs:
   deploy-nextjs:
