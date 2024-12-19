@@ -29,7 +29,7 @@ jobs:
           corepack enable
           corepack prepare pnpm@latest --activate
 
-      - name: Install Dependencies
+      - name: Install Dependencies with pnpm
         run: pnpm install --frozen-lockfile
 
       - name: Pull Vercel Project Settings
@@ -39,22 +39,7 @@ jobs:
       - name: Build Turbo Repo
         run: pnpm turbo run build --filter=web
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Cache Docker layers
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-
-      - name: Build Docker Image for Next.js app
-        run: |
-          docker buildx build -t nextjs-app -f apps/web/Dockerfile .
-
-      - name: Run Vercel Build
+      - name: Run Vercel Build (for Production)
         run: npx vercel build --cwd=apps/web --prod
 
       - name: Deploy Next.js app to Vercel
