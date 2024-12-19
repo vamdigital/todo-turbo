@@ -6,6 +6,6 @@
   },
   "env": {
     "PNPM_HOME": "/pnpm",
-    "NPM_CONFIG_USERCONFIG":"/pnpm/.npmrc"
+    "NPM_CONFIG_USERCONFIG": "/pnpm/.npmrc"
   }
 }

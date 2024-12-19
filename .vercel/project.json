@@ -1,0 +1,15 @@
+{
+  "projectId": "prj_vBF4Fkxl7Kyg1AzRT6saNQji7wA8",
+  "orgId": "team_CAn0LA4HTsRaX1afiknrHCRe",
+  "settings": {
+    "createdAt": 1734647908757,
+    "framework": "nextjs",
+    "devCommand": "pnpm dev", 
+    "installCommand": "pnpm install --frozen-lockfile", 
+    "buildCommand": "pnpm turbo run build --filter=web",
+    "outputDirectory": "apps/web/.next",
+    "rootDirectory": "/",
+    "directoryListing": false,
+    "nodeVersion": "22.x"
+  }
+}
