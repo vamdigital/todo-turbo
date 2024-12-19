@@ -28,7 +28,9 @@ jobs:
           cache: 'pnpm'
 
       - name: Install pnpm
-        run: corepack enable
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -62,7 +64,9 @@ jobs:
           cache: 'pnpm'
 
       - name: Install pnpm
-        run: corepack enable
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
