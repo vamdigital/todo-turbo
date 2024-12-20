@@ -49,30 +49,24 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # Step 8: Cache Docker layers to speed up builds
-      - name: Cache Docker layers
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
+      # Step 8: Authenticate Docker to Vercel Registry
+      - name: Log in to Vercel Docker Registry
+        run: |
+          echo ${{ secrets.VERCEL_TOKEN_NEXTJS }} | docker login registry.vercel.app -u ${{ secrets.VERCEL_PROJECT_ID_NEXTJS }} --password-stdin
 
-      # Step 9: Build and Push Docker Image to Vercel Container Registry
+      # Step 9: Build and Push Docker Image to Vercel
       - name: Build and Push Docker Image to Vercel
         run: |
           docker buildx build \
             --platform linux/amd64 \
-            --tag vercel/nextjs-app:${{ github.sha }} \
-            --output type=registry,ref=vercel/nextjs-app:${{ github.sha }} \
-            --build-arg VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID_NEXTJS }} \
+            --tag registry.vercel.app/${{ secrets.VERCEL_PROJECT_ID_NEXTJS }}:${{ github.sha }} \
+            --output type=registry,ref=registry.vercel.app/${{ secrets.VERCEL_PROJECT_ID_NEXTJS }}:${{ github.sha }} \
             -f apps/web/Dockerfile .
 
       # Step 10: Deploy Dockerized App to Vercel
       - name: Deploy Dockerized App to Vercel
         run: |
           npx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN_NEXTJS }} --cwd=apps/web --prod --yes
-
   # deploy-storybook:
   #   name: Deploy Storybook
   #   runs-on: ubuntu-latest
