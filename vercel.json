@@ -9,7 +9,6 @@
     "NPM_CONFIG_USERCONFIG": "/pnpm/.npmrc"
   },
   "build": {
-    "dockerfile": "apps/web/Dockerfile",
     "env": {
       "PNPM_VERSION": "latest"
     },
