@@ -57,10 +57,11 @@ jobs:
       # Step 9: Build and Push Docker Image to Vercel
       - name: Build and Push Docker Image to Vercel
         run: |
+          lower_project_id=$(echo "${{ secrets.VERCEL_PROJECT_ID_NEXTJS }}" | tr '[:upper:]' '[:lower:]')
           docker buildx build \
             --platform linux/amd64 \
-            --tag registry.vercel.app/${{ secrets.VERCEL_PROJECT_ID_NEXTJS }}:${{ github.sha }} \
-            --output type=registry,ref=registry.vercel.app/${{ secrets.VERCEL_PROJECT_ID_NEXTJS }}:${{ github.sha }} \
+            --tag registry.vercel.app/$lower_project_id:${{ github.sha }} \
+            --output type=registry,ref=registry.vercel.app/$lower_project_id:${{ github.sha }} \
             -f apps/web/Dockerfile .
 
       # Step 10: Deploy Dockerized App to Vercel
