@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
       <h1 className="text-9xl text-red-600 bg-test-700">
-        🐨 - Good Morning {Date.now().toLocaleString()}
+        🐨 - Good Night {Date.now().toLocaleString()}
       </h1>
       <Button variant="destructive">Destructive</Button>
       <Sample />
