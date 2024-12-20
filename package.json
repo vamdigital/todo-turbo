@@ -49,6 +49,8 @@
   },
   "dependencies": {
     "@esbuild/linux-arm64": "^0.24.0",
-    "@rollup/rollup-linux-arm64-musl": "^4.28.1"
+    "@rollup/rollup-linux-arm64-musl": "^4.28.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49"
   }
 }
