@@ -9,12 +9,13 @@
     "NPM_CONFIG_USERCONFIG": "/pnpm/.npmrc"
   },
   "build": {
+    "dockerfile": "apps/web/Dockerfile",
     "env": {
       "PNPM_VERSION": "latest"
     },
     "packageManager": "pnpm",
-    "installCommand": "pnpm install --frozen-lockfile",
-    "buildCommand": "pnpm turbo run build --filter=web"
+    "installCommand": "corepack enable && corepack prepare pnpm@latest --activate && pnpm install --frozen-lockfile",
+    "buildCommand": "pnpm build --filter=web"
   },
   "outputDirectory": "apps/web/.next"
 }
