@@ -5,7 +5,7 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copy package.json, lockfile, and pnpm workspace
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY ../../package.json ../../pnpm-lock.yaml ../../pnpm-workspace.yaml ./
 
 # Install dependencies
 RUN corepack enable && corepack prepare pnpm@latest --activate && pnpm install --frozen-lockfile

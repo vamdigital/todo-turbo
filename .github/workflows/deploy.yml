@@ -66,7 +66,7 @@ jobs:
             --tag vercel/nextjs-app:${{ github.sha }} \
             --output type=registry,ref=vercel/nextjs-app:${{ github.sha }} \
             --build-arg VERCEL_PROJECT_ID=${{ secrets.VERCEL_PROJECT_ID_NEXTJS }} \
-            -f apps/web/Dockerfile apps/web
+            -f apps/web/Dockerfile . 
 
       # Step 10: Deploy Dockerized App to Vercel
       - name: Deploy Dockerized App to Vercel
