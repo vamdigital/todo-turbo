@@ -6,7 +6,15 @@
   },
   "env": {
     "PNPM_HOME": "/pnpm",
-    "NPM_CONFIG_USERCONFIG": "/pnpm/.npmrc",
-    "VERCEL_PROJECT_ID": "${{ secrets.VERCEL_PROJECT_ID_NEXTJS }}"
-  }
+    "NPM_CONFIG_USERCONFIG": "/pnpm/.npmrc"
+  },
+  "build": {
+    "env": {
+      "PNPM_VERSION": "latest"
+    },
+    "packageManager": "pnpm",
+    "installCommand": "pnpm install --frozen-lockfile",
+    "buildCommand": "pnpm turbo run build --filter=web"
+  },
+  "outputDirectory": "apps/web/.next"
 }
