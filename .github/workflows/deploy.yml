@@ -47,4 +47,4 @@ jobs:
 
       - name: Deploy to Vercel
         run: |
-          npx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN_NEXTJS }} --cwd=apps/web --prod --yes
+          npx vercel deploy --token ${{ secrets.VERCEL_TOKEN_NEXTJS }} --cwd=apps/web --prod --yes
